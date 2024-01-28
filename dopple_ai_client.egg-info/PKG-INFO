@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: dopple-ai-client
+Version: 1.0.0
+Summary: Python API wrapper for Dopple.AI
+Home-page: https://github.com/Crimeraaa-S1GMA/DoppleAIClient
+Author: crimeraaa
+Author-email: majkelipytania@gmail.com
+License: MIT
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# DoppleAIClient
+
+Python API wrapper for Dopple.AI

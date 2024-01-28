@@ -1,0 +1,14 @@
+LICENSE
+README.md
+setup.py
+dopple_ai_client/__init__.py
+dopple_ai_client/api_urls.py
+dopple_ai_client/bot.py
+dopple_ai_client/chat.py
+dopple_ai_client/dopple_client.py
+dopple_ai_client/message.py
+dopple_ai_client/response.py
+dopple_ai_client.egg-info/PKG-INFO
+dopple_ai_client.egg-info/SOURCES.txt
+dopple_ai_client.egg-info/dependency_links.txt
+dopple_ai_client.egg-info/top_level.txt
