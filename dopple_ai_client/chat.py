@@ -1,25 +1,22 @@
 from .api_urls import *
 from .response import DoppleResponse
 from .message import DoppleMessage
+from .dopple_request_error import DoppleRequestError
 
 import requests
 import json
 
 class DoppleChat:
-    def __init__(self, chat_id, dopple_id, username, token) -> None:
+    def __init__(self, chat_id, dopple_id, email, request_helper) -> None:
         self.chat_id = chat_id
         self.dopple_id = dopple_id
-        self.username = username
-        self.token = token
+        self.email = email
+
+        self.request_helper = request_helper
     
     def get_chat_history(self, limit = 50, skip = 0) -> list:
-        req = requests.post(ml_url + "/get_paginated_chat_history", headers={
-            "Accept": "application/json",
-            "Accept-Language": "pl-PL,pl;q=0.9",
-            "Authorization": "Bearer {0}".format(self.token),
-            "Content-Type": "application/json",
-            "User-Agent": user_agent
-        }, json={"folder": "", "username":self.username,"dopple_id":self.dopple_id, "chat_id":self.chat_id,"limit":limit,"skip":skip})
+        req = self.request_helper.post(ml_url + "/get_paginated_chat_history", {"folder": "", "username":self.email,"dopple_id":self.dopple_id, "chat_id":self.chat_id,"limit":limit,"skip":skip})
+
         req_response = json.loads(req.text)
 
         messages = []
@@ -36,52 +33,25 @@ class DoppleChat:
         return messages
     
     def clear_chat_history(self) -> None:
-        req = requests.post(ml_url + "/clear_chat_history", headers={
-            "Accept": "application/json",
-            "Accept-Language": "pl-PL,pl;q=0.9",
-            "Authorization": "Bearer {0}".format(self.token),
-            "Content-Type": "application/json",
-            "User-Agent": user_agent
-        }, json={"folder": "", "username":self.username,"dopple_id":self.dopple_id, "chat_id":self.chat_id})
+        req = self.request_helper.post(ml_url + "/clear_chat_history", {"folder": "", "username":self.email,"dopple_id":self.dopple_id, "chat_id":self.chat_id})
     
     def send_message(self, message, reroll = False) -> DoppleResponse:
-        req = requests.post(api_url + "/messages/send" + ("?action=reroll" if reroll else ""), headers={
-            "Accept": "*/*",
-            "Accept-Language": "pl-PL,pl;q=0.9",
-            "Content-Type": "application/json",
-            "User-Agent": user_agent
-        }, json={"streamMode":"none","chatId":self.chat_id,"folder":"","username":self.username,"id":self.dopple_id,"userQuery":message}, cookies={
-            "accessToken" : self.token
-        })
+        req = self.request_helper.post_nobearer(api_url + "/messages/send" + ("?action=reroll" if reroll else ""), {"streamMode":"none","chatId":self.chat_id,"folder":"","username":self.email,"id":self.dopple_id,"userQuery":message})
+        
         req_response = json.loads(req.text)
         return DoppleResponse(message=req_response["response"], timestamp=req_response["timestamp"])
 
-    def edit_message(self, new_message) -> str:
-        req = requests.post(api_url + "/messages/send?action=edit", headers={
-            "Accept": "*/*",
-            "Accept-Language": "pl-PL,pl;q=0.9",
-            "Content-Type": "application/json",
-            "User-Agent": user_agent
-        }, json={"streamMode":"none","chatId":self.chat_id,"folder":"","username":self.username,"id":self.dopple_id,"userQuery":new_message}, cookies={
-            "accessToken" : self.token
-        })
+    def edit_last_user_message(self, new_message) -> str:
+        req = self.request_helper.post_nobearer(api_url + "/messages/send?action=edit", {"streamMode":"none","chatId":self.chat_id,"folder":"","username":self.email,"id":self.dopple_id,"userQuery":new_message})
+        
         req_response = json.loads(req.text)
         return req_response["response"]
+
+    def edit_last_bot_message(self, new_message) -> None:
+        req = self.request_helper.post(ml_url + "/edit_last_ai_response", {"chat_id":self.chat_id,"folder":"","username":self.email,"dopple_id":self.dopple_id,"new_ai_response":new_message})
     
     def delete_last_user_message(self) -> None:
-        req = requests.post(ml_url + "/delete_last_user_message", headers={
-            "Accept": "application/json",
-            "Accept-Language": "pl-PL,pl;q=0.9",
-            "Authorization": "Bearer {0}".format(self.token),
-            "Content-Type": "application/json",
-            "User-Agent": user_agent
-        }, json={"folder": "", "username":self.username,"dopple_id":self.dopple_id, "chat_id":self.chat_id})
+        req = self.request_helper.post(ml_url + "/delete_last_user_message", {"folder": "", "username":self.email,"dopple_id":self.dopple_id, "chat_id":self.chat_id})
     
     def delete_chat(self) -> None:
-        req = requests.post(ml_url + "/delete_chat", headers={
-            "Accept": "application/json",
-            "Accept-Language": "pl-PL,pl;q=0.9",
-            "Authorization": "Bearer {0}".format(self.token),
-            "Content-Type": "application/json",
-            "User-Agent": user_agent
-        }, json={"folder": "", "username":self.username,"dopple_id":self.dopple_id, "chat_id":self.chat_id})
+        req = self.request_helper.post(ml_url + "/delete_chat", {"folder": "", "username":self.email,"dopple_id":self.dopple_id, "chat_id":self.chat_id})
