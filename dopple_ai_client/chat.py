@@ -53,5 +53,8 @@ class DoppleChat:
     def delete_last_user_message(self) -> None:
         req = self.request_helper.post(ml_url + "/delete_last_user_message", {"folder": "", "username":self.email,"dopple_id":self.dopple_id, "chat_id":self.chat_id})
     
+    def delete_last_ai_response(self) -> None:
+        req = self.request_helper.post(ml_url + "/delete_last_ai_response", {"folder": "", "username":self.email,"dopple_id":self.dopple_id, "chat_id":self.chat_id})
+    
     def delete_chat(self) -> None:
         req = self.request_helper.post(ml_url + "/delete_chat", {"folder": "", "username":self.email,"dopple_id":self.dopple_id, "chat_id":self.chat_id})
