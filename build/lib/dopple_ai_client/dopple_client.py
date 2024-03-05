@@ -110,11 +110,11 @@ class DoppleClient:
 
         chat_id = json.loads(req.text)["chat_id"]
 
-        return DoppleChat(chat_id=chat_id, dopple_id=dopple_id, email=self.email, request_helper=self.request_helper)
+        return DoppleChat(chat_id=chat_id, dopple_id=dopple_id, email=self.email, folder="", request_helper=self.request_helper)
     
     def load_chat_from_bot(self, dopple_bot : DoppleBot) -> DoppleChat:
         req = self.request_helper.post(ml_url + "/get_chat_id", {"username":self.email,"dopple_id":dopple_bot.dopple_id})
 
         chat_id = json.loads(req.text)["chat_id"]
 
-        return DoppleChat(chat_id=chat_id, dopple_id=dopple_bot.dopple_id, email=self.email, request_helper=self.request_helper)
+        return DoppleChat(chat_id=chat_id, dopple_id=dopple_bot.dopple_id, email=self.email, folder="", request_helper=self.request_helper)
