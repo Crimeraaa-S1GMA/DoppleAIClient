@@ -45,6 +45,9 @@ class DoppleChat:
 
     def edit_last_bot_message(self, new_message) -> None:
         req = self.request_helper.post(ml_url + "/edit_last_ai_response", {"chat_id":self.chat_id,"folder":self.folder,"username":self.email,"dopple_id":self.dopple_id,"new_ai_response":new_message})
+
+    def commit_response(self, response) -> None:
+        req = self.request_helper.post(ml_url + "/commit_rerolled_response", {"chat_id":self.chat_id,"folder":self.folder,"username":self.email,"dopple_id":self.dopple_id,"ai_response":response})
     
     def delete_last_user_message(self) -> None:
         req = self.request_helper.post(ml_url + "/delete_last_user_message", {"folder": self.folder, "username":self.email,"dopple_id":self.dopple_id, "chat_id":self.chat_id})
