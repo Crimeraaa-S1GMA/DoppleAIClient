@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
   
 setuptools.setup( 
     name="dopple_ai_client", 
-    version="1.2.0.2", 
+    version="1.3.0.0", 
     author="crimeraaa", 
     author_email="majkelipytania@gmail.com", 
     packages=["dopple_ai_client"], 

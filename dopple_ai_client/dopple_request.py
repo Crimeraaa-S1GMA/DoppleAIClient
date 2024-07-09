@@ -6,6 +6,8 @@ class DoppleRequest:
     def __init__(self, dopple_token, user_agent) -> None:
         self.dopple_token = dopple_token
         self.user_agent = user_agent
+
+        self.good_status_codes = [200, 201]
     
     def get(self, url):
         req = requests.get(url=url, headers={
@@ -16,7 +18,7 @@ class DoppleRequest:
             "User-Agent": self.user_agent
         })
 
-        if req.status_code != 200:
+        if req.status_code not in self.good_status_codes:
             raise(DoppleRequestError(req.status_code))
 
         return req
@@ -30,7 +32,23 @@ class DoppleRequest:
             "User-Agent": self.user_agent
         }, json=json)
 
-        if req.status_code != 200:
+        if req.status_code not in self.good_status_codes:
+            raise(DoppleRequestError(req.status_code))
+
+        return req
+    
+    def delete(self, url):
+        req = requests.delete(url=url, headers={
+            "Accept": "*/*",
+            "Accept-Language": "pl-PL,pl;q=0.9",
+            "Authorization": "Bearer {0}".format(self.dopple_token),
+            "Content-Type": "application/json",
+            "User-Agent": self.user_agent
+        })
+
+        print(req.text)
+
+        if req.status_code not in self.good_status_codes:
             raise(DoppleRequestError(req.status_code))
 
         return req
@@ -45,7 +63,7 @@ class DoppleRequest:
             "accessToken" : self.dopple_token
         })
 
-        if req.status_code != 200:
+        if req.status_code not in self.good_status_codes:
             raise(DoppleRequestError(req.status_code))
 
         return req
@@ -60,7 +78,7 @@ class DoppleRequest:
             "accessToken" : self.dopple_token
         })
 
-        if req.status_code != 200:
+        if req.status_code not in self.good_status_codes:
             raise(DoppleRequestError(req.status_code))
 
         return req

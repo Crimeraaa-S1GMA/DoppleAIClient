@@ -5,6 +5,7 @@ class DoppleBot:
         self.tagline = tagline
 
         self.bio = metadata["bio"]
+        self.description = metadata["description"]
         self.greeting = metadata["greeting"]
         self.avatar_url = metadata["avatar_url"]
         self.banner_url = metadata["banner_url"]
