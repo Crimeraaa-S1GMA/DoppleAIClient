@@ -1,3 +1,5 @@
+## Warning: this API wrapper is currently outdated, and may not work properly. I am working on an update that will fix this and make functionality certain.
+
 # DoppleAIClient
 
 
@@ -44,7 +46,7 @@ Here are the steps you need to follow in order to
 
 This library is actively maintained, and will add new features over time. Here are some of the planned things:
 
-- Find a better way of obtaining Dopple info. Right now the metadata is scraped from an HTML page, which has performance implications and isn't very tidy.
+- Find a better way of obtaining Dopple info. Right now the metadata is scraped from an HTML page, which has performance implications and isn't very tidy. (Coming soon)
 - Add the ability sign-in with e-mail and password.
 - Editing Dopples (possibly creating them too)
 - Support for Dopple Reactions and Dopple Voice
