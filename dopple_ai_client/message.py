@@ -1,15 +1,15 @@
 class DoppleMessage:
-    def __init__(self, content, type) -> None:
-        self.content = content
-        self.type = type
-        self.timestamp = 0.0
-        self.edited = False
-        self.nsfw = False
-        self.emotion_image_url = ""
-        self.example = False
-        self.rerolled_responses = []
+    def __init__(self, content : str, type : str) -> None:
+        self.content : str = content
+        self.type : str = type
+        self.timestamp : float = 0.0
+        self.edited : bool = False
+        self.nsfw : bool = False
+        self.emotion_image_url : str = ""
+        self.example : bool = False
+        self.rerolled_responses : list[str] = []
     
-    def from_msg(self, msg):
+    def from_msg(self, msg : dict):
         self.content = msg["message"]["data"]["content"]
         self.type = msg["message"]["type"]
         self.timestamp = msg["timestamp"]
@@ -22,3 +22,6 @@ class DoppleMessage:
         if "rerolled_responses" in msg["message"]["data"]:
             for response in msg["message"]["data"]["rerolled_responses"]:
                 self.rerolled_responses.append(response)
+    
+    def __str__(self) -> str:
+        return f"{self.content}"

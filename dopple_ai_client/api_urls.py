@@ -1,5 +1,6 @@
 
 ml_url = "https://ml.dopple.ai/"
+ml_v2_url = "https://ml.dopple.ai/v2/"
 site_url = "https://beta.dopple.ai/"
 be_url = "https://be.dopple.ai/"
 
