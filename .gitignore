@@ -1,3 +1,8 @@
 
 main.py
 temp.txt
+/build
+build.sh
+/__pycache__
+/dopple_ai_client.egg-info
+/dist
