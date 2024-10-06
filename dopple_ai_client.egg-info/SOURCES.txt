@@ -9,6 +9,7 @@ dopple_ai_client/dopple_client.py
 dopple_ai_client/dopple_request.py
 dopple_ai_client/dopple_request_error.py
 dopple_ai_client/message.py
+dopple_ai_client/profile.py
 dopple_ai_client/response.py
 dopple_ai_client/user_data.py
 dopple_ai_client.egg-info/PKG-INFO
